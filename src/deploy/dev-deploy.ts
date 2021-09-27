@@ -2,7 +2,7 @@ import fs from 'fs';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import mainConfig from "../configs/main.config.json";
-
+import { green } from 'chalk';
 
 const commands: string[] = [];
 const commandFiles = fs.readdirSync('./src/commands').filter((file: string) => file.endsWith('.ts'));
@@ -22,5 +22,5 @@ rest
     ),
     { body: commands }
   )
-  .then(() => console.log("Successfully registered application commands."))
+  .then(() => console.log(green("Successfully registered application commands.")))
   .catch(console.error);

@@ -2,10 +2,14 @@ import { Interaction } from "discord.js";
 
 import fs from "fs";
 import { Client, Collection, Intents } from "discord.js";
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client: any = new Client({ intents: [Intents.FLAGS.GUILDS] });
 import mainConfig from "./configs/main.config.json";
+import { green , cyan, red} from "chalk";
 
 client.commands = new Collection();
+
+// Command handler used for listening to commands
+/** Contains command files */
 const commandFiles = fs
   .readdirSync("./src/commands/")
   .filter((file: string) => file.endsWith(".ts"));
@@ -16,15 +20,26 @@ for (const file of commandFiles) {
 }
 
 client.once("ready", () => {
-  console.log("Ready to use! Issues? Report here!");
-  console.log("https://github.com/dhairy-online/nevagon/issues/new");
+  let reStats = true;
+  console.log(cyan("Ready to use! Issues? Report here!"));
+  console.log(cyan("https://github.com/dhairy-online/nevagon/issues/new"));
+  setInterval(() => {
+    if (reStats) {
+      client.user?.setActivity(`slash commands | Online`, {
+        name: "nevagon",
+        type: "LISTENING",
+      });
+    } else {
+      client.user?.setActivity(`Github Repositories`, {
+        name: "nevagon",
+        type: "WATCHING",
+      });
+    }
 
-  client.user?.setActivity(`Listening to '/' commands | Online`, {
-    name: "nevagon",
-    type: "STREAMING",
-    url: "https://www.twitch.tv/breadoonline",
-  });
-});
+    reStats = !reStats;
+  }, 10000)
+  console.log(green('Loaded %s commands'), commandFiles.length)
+})
 
 client.on("interactionCreate", async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
@@ -36,7 +51,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
   try {
     await command.execute(interaction);
   } catch (error) {
-    console.log("Interaction Failed")
+    console.log(red("Interaction Failed"));
     console.error(error);
     await interaction.reply({
       content: "There was an error while executing this command!",
@@ -45,5 +60,8 @@ client.on("interactionCreate", async (interaction: Interaction) => {
   }
 });
 
+client
+  .on("disconnect", () => console.warn("Disconnecting..."))
+  .on("reconnecting", () => console.log("Reconnecting..."));
 
 client.login(mainConfig.SECRETS.TOKEN);
