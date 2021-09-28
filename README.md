@@ -1,4 +1,4 @@
-# nevagon
-Nevagon, the discord bot
+# Uranus
+Uranus, the discord bot
 
-Uses slash commands for command handlings
+Uses slash commands and has a pretty cool looking dashboard!
