@@ -4,7 +4,7 @@ import fs from "fs";
 import { Client, Collection, Intents } from "discord.js";
 const client: any = new Client({ intents: [Intents.FLAGS.GUILDS] });
 import mainConfig from "./configs/main.config.json";
-import { green , cyan, red} from "chalk";
+import { green, cyan, red } from "chalk";
 
 client.commands = new Collection();
 
@@ -37,9 +37,9 @@ client.once("ready", () => {
     }
 
     reStats = !reStats;
-  }, 10000)
-  console.log(green('Loaded %s commands'), commandFiles.length)
-})
+  }, 10000);
+  console.log(green("Loaded %s commands"), commandFiles.length);
+});
 
 client.on("interactionCreate", async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
