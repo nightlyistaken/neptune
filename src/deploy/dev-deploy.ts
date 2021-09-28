@@ -2,6 +2,7 @@ import fs from "fs";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import mainConfig from "../configs/main.config.json";
+import botToken from "../configs/token.json";
 import { green } from "chalk";
 
 const commands: string[] = [];
@@ -15,7 +16,7 @@ for (const file of commandFiles) {
 }
 
 const rest: REST = new REST({ version: "9" }).setToken(
-  mainConfig.SECRETS.TOKEN
+  botToken.token
 );
 
 rest

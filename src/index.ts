@@ -4,6 +4,7 @@ import fs from "fs";
 import { Client, Collection, Intents } from "discord.js";
 const client: any = new Client({ intents: [Intents.FLAGS.GUILDS] });
 import mainConfig from "./configs/main.config.json";
+import botToken from "./configs/token.json";
 import { green, cyan, red } from "chalk";
 
 client.commands = new Collection();
@@ -58,10 +59,10 @@ client.on("interactionCreate", async (interaction: Interaction) => {
       ephemeral: true,
     });
   }
-});
+}); 
 
 client
   .on("disconnect", () => console.warn("Disconnecting..."))
-  .on("reconnecting", () => console.log("Reconnecting..."));
+  .on("reconnecting", () => console.info("Reconnecting..."));
 
-client.login(mainConfig.SECRETS.TOKEN);
+client.login(botToken.token);
