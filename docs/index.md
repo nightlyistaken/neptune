@@ -1,9 +1,9 @@
-# Oberon
-These is the documentation for Uranus - the discord bot.
+# Triton
+These is the documentation for Neptune.
 
 
-**What's Oberon then ?!**
-*Oberon* is just a name for this documentation, don't get confused
+**What's Triton then ?!**
+*Triton* is just a name for this documentation, so don't get confused 😅
 
 
 
