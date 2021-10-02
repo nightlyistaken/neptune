@@ -8,8 +8,6 @@ const client: any = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
 
-
-
 // Command handler
 const eventFiles = fs
   .readdirSync("./src/events")

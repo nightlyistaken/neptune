@@ -10,7 +10,7 @@
     "dev": "nodemon src/index.ts",
     "deploy:dev": "nodemon src/deploy/dev-deploy.ts",
     "start": "ts-node src/index.ts",
-    "deploy:prod" : "ts-node src/deploy/production-deploy.ts"
+    "deploy:prod": "ts-node src/deploy/production-deploy.ts"
   },
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
@@ -27,6 +27,8 @@
     "path": "^0.12.7",
     "sqlite3": "^5.0.2",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "yt-search": "^2.10.1",
+    "ytdl-core": "^4.9.1"
   }
 }
