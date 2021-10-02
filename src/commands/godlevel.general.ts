@@ -10,7 +10,7 @@ module.exports = {
   async execute(interaction: any) {
     const embed = new MessageEmbed();
     embed
-      .setColor("#0099ff")
+      .setColor("#332191")
       .setTitle(`You're a ${Math.floor(Math.random() * 100 + 1)}% god!`);
     return await interaction.reply({ embeds: [embed] });
   },

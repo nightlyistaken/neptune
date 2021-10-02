@@ -1,47 +1,33 @@
-import { Interaction } from "discord.js";
-
+import { GuildManager, GuildMember, Interaction } from "discord.js";
 import fs from "fs";
 import { Client, Collection, Intents } from "discord.js";
-const client: any = new Client({ intents: [Intents.FLAGS.GUILDS] });
-import mainConfig from "./configs/main.config.json";
 import botToken from "./configs/token.json";
-import { green, cyan, red } from "chalk";
+import { red, white, greenBright } from "chalk";
+
+const client: any = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
 
-// Command handler used for listening to commands
-/** Contains command files */
-const commandFiles = fs
-  .readdirSync("./src/commands/")
-  .filter((file: string) => file.endsWith(".ts"));
 
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.data.name, command);
+
+// Command handler
+const eventFiles = fs
+  .readdirSync("./src/events")
+  .filter((file) => file.endsWith(".ts"));
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  if (event.once) {
+    client.once(event.name, (...args: any) => event.execute(...args));
+  } else {
+    client.on(event.name, (...args: any) => event.execute(...args));
+  }
+  console.info(greenBright(`Loaded ${event.name} event.`));
 }
-
-client.once("ready", () => {
-  let reStats = true;
-  console.log(cyan("Ready to use! Issues? Report here!"));
-  console.log(cyan("https://github.com/dhairy-online/nevagon/issues/new"));
-  setInterval(() => {
-    if (reStats) {
-      client.user?.setActivity(`slash commands | Online`, {
-        name: "nevagon",
-        type: "LISTENING",
-      });
-    } else {
-      client.user?.setActivity(`Github Repositories`, {
-        name: "nevagon",
-        type: "WATCHING",
-      });
-    }
-
-    reStats = !reStats;
-  }, 10000);
-  console.log(green("Loaded %s commands"), commandFiles.length);
+client.on("guildMemberAdd" , async (member : any) => {
+  console.log("Someone joined");
 });
 
+// Load slash commands
 client.on("interactionCreate", async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
 
@@ -51,6 +37,11 @@ client.on("interactionCreate", async (interaction: Interaction) => {
 
   try {
     await command.execute(interaction);
+    console.log(
+      white(
+        `/${interaction.commandName} was executed by ${interaction.user.tag} on ${interaction.guild?.name}`
+      )
+    );
   } catch (error) {
     console.log(red("Interaction Failed"));
     console.error(error);
@@ -59,7 +50,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
       ephemeral: true,
     });
   }
-}); 
+});
 
 client
   .on("disconnect", () => console.warn("Disconnecting..."))

@@ -14,14 +14,14 @@ module.exports = {
     const user = interaction.options.getUser("user");
     const embed = new MessageEmbed();
     embed
-      .setColor("#02BF92")
+      .setColor("#332191")
       .setTitle(`${user.tag}`)
       .setDescription(
         `You are currently viewing **${user.username}'s** discord profile!`
       )
       .addFields(
         {
-          name: `${user.username}'s account create at`,
+          name: `${user.username}'s account created at`,
           value: `${user.createdAt.toLocaleString()}`,
         },
         {

@@ -19,14 +19,22 @@ module.exports = {
   async execute(interaction: any) {
     const user = interaction.options.getUser("user");
     const note = interaction.options.getString("thanks-note");
-    const embed = new MessageEmbed();
-    embed
-      .setColor("#02BF92")
+    const mainEmbed = new MessageEmbed();
+    mainEmbed
+      .setColor("#332191")
       .setTitle(`Thanks ${user.username}!`)
       .setDescription(
         `${user.username} you have been thanked by ${interaction.user.username}! for *${note}*`
       )
       .setThumbnail(user.displayAvatarURL({ format: "jpg" }));
-    return await interaction.reply({ embeds: [embed] });
+    const dmEmbed = new MessageEmbed();
+    dmEmbed
+      .setColor("#332191")
+      .setTitle(`You got thanked by ${interaction.user.username}!`)
+      .setDescription(
+        `Check ${interaction.guild.name}'s <#${interaction.channel}> channel to check the note :)`
+      );
+    return await (interaction.reply({ embeds: [mainEmbed] }),
+    user.send({ embeds: [dmEmbed] }));
   },
 };
