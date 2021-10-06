@@ -4,7 +4,7 @@ import { Client, Collection, Intents } from "discord.js";
 import botToken from "./configs/token.json";
 import { red, white, greenBright } from "chalk";
 
-const client: any = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client: any = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
 
 client.commands = new Collection();
 
