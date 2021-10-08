@@ -1,4 +1,16 @@
+# Node stuff
 node_modules/
 
+# NPM log stuff
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Token
 src/configs/token.json
+
+# KDE Plasma file manager files
+.directory
+bs/
+
 
