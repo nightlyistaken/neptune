@@ -1,21 +1,18 @@
 {
-  "name": "nevagon",
+  "name": "neptune",
   "version": "1.0.0",
-  "description": "Nevagon, the discord bot",
+  "description": "Neptune, the discord bot for good ppl by a 'dog'?",
   "main": "src/index.ts",
-  "repository": "https://github.com/dhairy-online/nevagon.git",
-  "author": "breadA <dhairy.srivastava@gmail.com>",
+  "repository": "https://github.com/dhairy-online/neptune.git",
+  "author": "Dhairy Srivastava <dhairy.srivastava@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/index.ts",
-    "deploy:dev": "nodemon src/deploy/dev-deploy.ts",
-    "start": "ts-node src/index.ts",
-    "deploy:prod": "ts-node src/deploy/production-deploy.ts"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
-    "body-parser": "^1.19.0",
     "chalk": "^4.1.2",
     "discord-api-types": "^0.23.1",
     "discord.js": "^13.1.0",
@@ -26,8 +23,6 @@
     "nodemon": "^2.0.13",
     "path": "^0.12.7",
     "sqlite3": "^5.0.2",
-    "ts-node": "^10.2.1",
-    "typescript": "^4.4.3",
     "yt-search": "^2.10.1",
     "ytdl-core": "^4.9.1"
   }
