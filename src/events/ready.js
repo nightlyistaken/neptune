@@ -13,9 +13,11 @@ module.exports = {
       client.commands.set(command.data.name, command);
     }
 
-    console.log(green(`Loaded ${commandFiles.length} commands`));
+    console.info(green(`Loaded ${commandFiles.length} commands`));
     console.log(cyan("Ready to use! Issues? Report here!"));
     console.log(cyan("https://github.com/dhairy-online/neptune/issues/new"));
+    console.info(`Connected as ${cyan(client.user.tag)}`);
+    
     deploy(client);
 
     let reStats = true;

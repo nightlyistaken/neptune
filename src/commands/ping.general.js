@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
+const { inlineCode, codeBlock } = require('@discordjs/builders');
 const wait = require('util').promisify(setTimeout);
 module.exports = {
   data: new SlashCommandBuilder()
@@ -23,7 +24,7 @@ module.exports = {
         `${interaction.user.username}`,
         `${interaction.user.displayAvatarURL({ format: "jpg" })}`
       )
-      .setDescription(`It's ${interaction}`);
+      .setDescription(codeBlock(`It's ${interaction}`));
     await interaction.reply({ embeds: [embed] });
     await wait(3000)
     await interaction.followUp({embeds: [botPingEmbed]})

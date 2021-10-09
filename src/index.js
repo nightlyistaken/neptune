@@ -2,7 +2,7 @@ const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
 const botToken = require("./configs/token.json")
 const red = require("chalk");
-
+const wait = require("util").promisify(setTimeout);
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS],
 });
@@ -31,6 +31,8 @@ client.on("interactionCreate", async (interaction) => {
   if (!command) return;
 
   try {
+    // Try to show "Sending command.." 
+    await wait(500);
     await command.execute(interaction);
   } catch (err) {
     console.log(red("Interaction Failed"));

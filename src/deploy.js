@@ -1,5 +1,4 @@
 const { REST } = require("@discordjs/rest");
-const { cyanBright } = require("chalk");
 const fs = require("fs");
 const { Routes } = require("discord-api-types/v9");
 const { token } = require("./configs/token.json");
@@ -22,10 +21,5 @@ module.exports = function deploy(client) {
     .put(Routes.applicationCommands(mainConfig.GENERAL.CLIENTID), {
       body: commands,
     })
-    .then(() =>
-      console.log(
-        cyanBright.bgBlack("Successfully registered application commands!")
-      )
-    )
     .catch(console.error);
 }
