@@ -1,18 +1,24 @@
+// Copyright (c) 2021-2021 Dhairy Srivastava. All rights reserved. MIT license.
+
 const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
-const botToken = require("./configs/token.json")
 const red = require("chalk");
-const wait = require("util").promisify(setTimeout);
+
+/** The file where the token is stored */
+const { token } = require("./token.json");
+
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS],
 });
 
+// Create a new command collection
 client.commands = new Collection();
 
-// Command handler
+
 const eventFiles = fs
   .readdirSync("./src/events")
   .filter((file) => file.endsWith(".js"));
+
 for (const file of eventFiles) {
   const event = require(`./events/${file}`);
   if (event.once) {
@@ -22,17 +28,16 @@ for (const file of eventFiles) {
   }
 }
 
+
 // Load slash commands
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
-  const commands = client.commands
+  const commands = client.commands;
   const command = commands.get(interaction.commandName);
 
   if (!command) return;
 
   try {
-    // Try to show "Sending command.." 
-    await wait(500);
     await command.execute(interaction);
   } catch (err) {
     console.log(red("Interaction Failed"));
@@ -48,4 +53,4 @@ client
   .on("disconnect", () => console.warn("Disconnecting..."))
   .on("reconnecting", () => console.info("Reconnecting..."));
 
-client.login(botToken.token);
+client.login(token);

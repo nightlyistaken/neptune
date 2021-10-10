@@ -1,9 +1,12 @@
+// Copyright (c) 2021-2021 Dhairy Srivastava. All rights reserved. MIT license.
+
 const { REST } = require("@discordjs/rest");
 const fs = require("fs");
 const { Routes } = require("discord-api-types/v9");
-const { token } = require("./configs/token.json");
 const mainConfig = require("./configs/main.config.json");
-// const { ClientApplication } = require("discord.js");
+
+/** The file where the token is stored */
+const { token } = require("./token.json");
 
 module.exports = function deploy(client) {
   const commands = [];
