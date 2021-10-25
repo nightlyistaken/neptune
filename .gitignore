@@ -7,7 +7,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Token
-src/token.json
+./src/token.json
 
 # KDE Plasma file manager files
 .directory

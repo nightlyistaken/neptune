@@ -5,15 +5,14 @@ const fs = require("fs");
 const red = require("chalk");
 
 /** The file where the token is stored */
-const { token } = require("./token.json");
+const { token } = require("./token.js");
 
 const client = new Client({
+  partials: ["CHANNEL"],
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS],
 });
 
-// Create a new command collection
 client.commands = new Collection();
-
 
 const eventFiles = fs
   .readdirSync("./src/events")
@@ -37,16 +36,21 @@ client.on("interactionCreate", async (interaction) => {
 
   if (!command) return;
 
-  try {
-    await command.execute(interaction);
-  } catch (err) {
-    console.log(red("Interaction Failed"));
-    console.error(err);
-    await interaction.reply({
-      content: "There was an error while executing this command!",
-      ephemeral: true,
-    });
+  if(interaction.channel.type == "DM"){
+    interaction.reply("Commands are not allowed to be used in DM's");
+  } else {
+    try {
+      await command.execute(interaction);
+    } catch (err) {
+      console.log(red("Interaction Failed"));
+      console.error(err);
+      await interaction.reply({
+        content: "There was an error while executing this command!",
+        ephemeral: true,
+      });
+    }
   }
+  
 });
 
 client

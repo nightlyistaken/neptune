@@ -1,6 +1,7 @@
 const { green, cyan } = require("chalk");
 const fs = require("fs");
 const deploy = require("../deploy");
+
 module.exports = {
   name: "ready",
   once: true,
@@ -18,7 +19,7 @@ module.exports = {
     console.log(cyan("https://github.com/dhairy-online/neptune/issues/new"));
     console.info(`Connected as ${cyan(client.user.tag)}`);
     
-    deploy(client);
+    deploy();
 
     let reStats = true;
     setInterval(() => {

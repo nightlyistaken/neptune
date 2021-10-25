@@ -6,9 +6,10 @@ const { Routes } = require("discord-api-types/v9");
 const mainConfig = require("./configs/main.config.json");
 
 /** The file where the token is stored */
-const { token } = require("./token.json");
+const { token } = require("./token.js");
 
-module.exports = function deploy(client) {
+
+module.exports = function deploy() {
   const commands = [];
   const rest = new REST({ version: "9" }).setToken(token);
   const commandFiles = fs

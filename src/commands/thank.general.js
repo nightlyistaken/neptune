@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder, bold, italic } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
@@ -26,15 +26,36 @@ module.exports = {
       .setDescription(
         `${user?.username} you have been thanked by ${interaction.user.username}! for *${note}*`
       )
-      .setThumbnail(user?.displayAvatarURL({ format: "jpg" }));
-    const dmEmbed = new MessageEmbed();
-    dmEmbed
-      .setColor("#332191")
-      .setTitle(`You got thanked by ${interaction.user.username}!`)
-      .setDescription(
-        `Check ${interaction.guild?.name}'s <#${interaction.channel}> channel to check the note :)`
-      );
-    return await (interaction.reply({ embeds: [mainEmbed] }),
-    user?.send({ embeds: [dmEmbed] }));
+      .setThumbnail(user?.displayAvatarURL({ format: "jpg" }))
+      .setTimestamp();
+
+      const selfEmbed = new MessageEmbed();
+      selfEmbed
+        .setColor("#332191")
+        .setTitle(`Thanks ${user?.username}!`)
+        .setDescription(
+          `${user?.username} you have been thanked by ${interaction.user.username}!....
+          wait ${bold(interaction.user.username)} thanked itself! -_-`
+        )
+        .setThumbnail(user?.displayAvatarURL({ format: "jpg" }))
+        .setTimestamp();
+
+    if (user?.bot) {
+      
+      if(user?.username == interaction.client.user.username) {
+       interaction.reply(bold(`Welcome <@${interaction.user.id}> ฅ(=＾◕ᆺ◕＾=)ฅ`))
+      } else {
+        interaction.reply(`${bold(`${user?.username}`)} is a bot!, can it be ${italic(`${bold("me?")} ฅ(=＾◕ᆺ◕＾=)ฅ`)}`)
+      }
+    
+    } else {
+      if (user?.username == interaction.user.username) {
+        return await interaction.reply({ embeds: [selfEmbed] });
+      } else {
+        return await interaction.reply({ embeds: [mainEmbed] });
+      }
+    }
+    
+    
   },
 };
