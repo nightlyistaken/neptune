@@ -4,7 +4,7 @@
 - `commands`: Folder where commands are stored
 - `configs`: Contains config files. To use the bot, create a `token.js` file in the `src` folder and paste this :-
 
-```json
+```js
   module.exports = {
      token: "bot_token_goes_here"
   }
