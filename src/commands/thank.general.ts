@@ -1,6 +1,7 @@
-const { SlashCommandBuilder, bold, italic } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
-module.exports = {
+import { SlashCommandBuilder, bold, italic } from "@discordjs/builders";
+import { CommandInteraction, MessageEmbed, User } from "discord.js";
+
+export = {
   data: new SlashCommandBuilder()
     .setName("thank")
     .setDescription("Say thank you to someone.")
@@ -16,7 +17,7 @@ module.exports = {
         .setDescription("Why do you want to thank him/her?")
         .setRequired(true)
     ),
-  async execute(interaction) {
+  async execute(interaction: CommandInteraction) {
     const user = interaction.options.getUser("user");
     const note = interaction.options.getString("thanks-note");
     const mainEmbed = new MessageEmbed();
@@ -26,7 +27,7 @@ module.exports = {
       .setDescription(
         `${user?.username} you have been thanked by ${interaction.user.username}! for *${note}*`
       )
-      .setThumbnail(user?.displayAvatarURL({ format: "jpg" }))
+      .setThumbnail((user as User)?.displayAvatarURL({ format: "jpg" }))
       .setTimestamp();
 
       const selfEmbed = new MessageEmbed();
@@ -37,12 +38,12 @@ module.exports = {
           `${user?.username} you have been thanked by ${interaction.user.username}!....
           wait ${bold(interaction.user.username)} thanked itself! -_-`
         )
-        .setThumbnail(user?.displayAvatarURL({ format: "jpg" }))
+        .setThumbnail((user as User)?.displayAvatarURL({ format: "jpg" }))
         .setTimestamp();
 
     if (user?.bot) {
       
-      if(user?.username == interaction.client.user.username) {
+      if(user?.username == interaction.client.user?.username) {
        interaction.reply(bold(`Welcome <@${interaction.user.id}> ฅ(=＾◕ᆺ◕＾=)ฅ`))
       } else {
         interaction.reply(`${bold(`${user?.username}`)} is a bot!, can it be ${italic(`${bold("me?")} ฅ(=＾◕ᆺ◕＾=)ฅ`)}`)

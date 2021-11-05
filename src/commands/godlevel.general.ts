@@ -1,10 +1,10 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
-module.exports = {
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction, MessageEmbed } from "discord.js";
+export = {
   data: new SlashCommandBuilder()
     .setName("god")
     .setDescription("Check your god level!"),
-  async execute(interaction) {
+  async execute(interaction: CommandInteraction) {
     const embed = new MessageEmbed();
     embed
       .setColor("#332191")

@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { MessageEmbed, MessageActionRow, MessageButton, CommandInteraction, TextChannel } from "discord.js";
 
-module.exports = {
+export = {
   data: new SlashCommandBuilder()
     .setName("suggestion")
     .setDescription("Suggest someone with a poll")
@@ -17,12 +17,12 @@ module.exports = {
         .setDescription("Select a channel")
         .setRequired(true)
     ),
-  async execute(interaction) {
+  async execute(interaction: CommandInteraction) {
     const input =
       interaction.options.getString("suggestion") || "No suggestion specified";
     const channel = interaction.options.getChannel(
       "destination"
-    );
+    ) as TextChannel;
 
     const unknownTypeRow = new MessageActionRow();
 
@@ -40,7 +40,7 @@ module.exports = {
         interaction.user.displayAvatarURL({ dynamic: true })
       )
       .setDescription(input);
-    if (channel.type === "GUILD_TEXT") {
+    if (channel?.type === "GUILD_TEXT") {
       const message = channel
         ?.send({
           embeds: [embed],

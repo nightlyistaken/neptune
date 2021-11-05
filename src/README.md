@@ -2,15 +2,15 @@
 
 - `events`: Contains event files.
 - `commands`: Folder where commands are stored
-- `configs`: Contains config files. To use the bot, create a `token.js` file in the `src` folder and paste this :-
+- `configs`: Contains config files. To use the bot, create a `token.ts` file in the `src` folder and paste this :-
 
-```js
-  module.exports = {
-     token: "bot_token_goes_here"
-  }
+```t
+  export const token =
+    "bot_token_goes_here";
+
 ```
 
 replace `bot_token_goes_here` with the bot's token.
 
- - `index.js` : Entry point
+ - `index.ts` : Entry point
  - `README.md`: Where you are currently reading

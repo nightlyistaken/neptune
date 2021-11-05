@@ -12,7 +12,7 @@ export default function Home() {
         <div className="flex-col justify-center hero-content lg:flex-row">
           <div className="text-center lg:text-left">
             <h1 className="mb-5 text-5xl font-bold">Neptune</h1>
-            <p className="mb-1">
+            <p className="mb-1 mr-4">
               Configure moderation and much more with the most easy-to-use
               dashboard!
             </p>

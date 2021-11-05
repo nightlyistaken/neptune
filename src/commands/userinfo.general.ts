@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
-module.exports = {
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction, MessageEmbed, User } from "discord.js";
+export = {
   data: new SlashCommandBuilder()
     .setName("user")
     .setDescription("Display a user's details")
@@ -10,7 +10,7 @@ module.exports = {
         .setDescription("What action should be taken with the users points?")
         .setRequired(true)
     ),
-  async execute(interaction) {
+  async execute(interaction: CommandInteraction) {
     const user = interaction.options.getUser("user");
     const embed = new MessageEmbed();
     embed
@@ -41,7 +41,7 @@ module.exports = {
           value: `${user?.username}*#*${user?.discriminator}`,
         }
       )
-      .setThumbnail(user?.displayAvatarURL({ format: "jpg" }));
+      .setThumbnail((user as User)?.displayAvatarURL({ format: "jpg" }));
     return await interaction.reply({ embeds: [embed] });
   },
 };

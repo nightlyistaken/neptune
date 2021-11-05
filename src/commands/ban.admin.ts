@@ -1,6 +1,7 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
-module.exports = {
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction, GuildMember, MessageEmbed, User } from "discord.js";
+import { client } from "../"
+export = {
   data: new SlashCommandBuilder()
     .setName("ban")
     .setDescription("Are you a admin? Ban someone!")
@@ -15,11 +16,11 @@ module.exports = {
         .setName("reason")
         .setDescription("Why do you want to ban the user? ")
     ),
-  async execute(interaction) {
+  async execute(interaction: CommandInteraction) {
     const user = interaction.options.getMember("user");
-    const reason = interaction.options.getString("reason") || "Not given";
+    const reason = interaction.options.getString("reason") || "No reason provided";
     // TODO: Ban command
-    user?.kick(reason);
+    (user as GuildMember)?.kick(reason);
     const embed = new MessageEmbed();
     embed
       .setColor("#332191")

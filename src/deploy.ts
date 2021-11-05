@@ -1,20 +1,20 @@
 // Copyright (c) 2021-2021 Dhairy Srivastava. All rights reserved. MIT license.
 
-const { REST } = require("@discordjs/rest");
-const fs = require("fs");
-const { Routes } = require("discord-api-types/v9");
-const mainConfig = require("./configs/main.config.json");
+import { REST } from "@discordjs/rest";
+import fs from "fs";
+import { Routes } from "discord-api-types/v9";
+import mainConfig from "./configs/main.config.json";
 
 /** The file where the token is stored */
-const { token } = require("./token.js");
+import { token } from "./token";
 
 
-module.exports = function deploy() {
+export default function deploy() {
   const commands = [];
   const rest = new REST({ version: "9" }).setToken(token);
   const commandFiles = fs
     .readdirSync("./src/commands")
-    .filter((file) => file.endsWith(".js"));
+    .filter((file) => file.endsWith(".ts"));
 
   for (const file of commandFiles) {
     const command = require(`./commands/${file}`);

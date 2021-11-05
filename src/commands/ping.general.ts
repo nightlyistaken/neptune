@@ -1,12 +1,14 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
-const { inlineCode } = require("@discordjs/builders");
+import { CommandInteraction } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { MessageEmbed } from "discord.js";
+import { inlineCode } from "@discordjs/builders";
+
 const wait = require("util").promisify(setTimeout);
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Check your ping!"),
-  async execute(interaction) {
+  async execute(interaction : CommandInteraction) {
     const embed = new MessageEmbed();
     embed
       .setColor("#332191")
