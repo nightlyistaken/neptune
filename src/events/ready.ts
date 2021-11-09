@@ -1,12 +1,12 @@
 import { green, cyan } from "chalk";
 import { Client } from "discord.js";
 import fs from "fs";
-import deploy from "../deploy";
+import client from "../Neptune";
 
 export = {
   name: "ready",
   once: true,
-  execute(client: Client) {
+  execute() {
     const commandFiles = fs
       .readdirSync("./src/commands/")
       .filter((file) => file.endsWith(".ts"));
@@ -15,12 +15,12 @@ export = {
       (client as any).commands.set(command.data.name, command);
     }
 
-    console.info(green(`Loaded ${commandFiles.length} commands`));
+    console.log(green(`Loaded ${commandFiles.length} commands`));
     console.log(cyan("Ready to use! Issues? Report here!"));
     console.log(cyan("https://github.com/dhairy-online/neptune/issues/new"));
-    console.info(`Connected as ${cyan(client.user?.tag)}`);
+    console.log(`Connected as ${cyan(client.user?.tag)}`);
     
-    deploy();
+    client.deployCommands()
 
     let reStats = true;
     setInterval(() => {

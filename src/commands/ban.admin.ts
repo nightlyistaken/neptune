@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, GuildMember, MessageEmbed, User } from "discord.js";
-import { client } from "../"
+
 export = {
   data: new SlashCommandBuilder()
     .setName("ban")
