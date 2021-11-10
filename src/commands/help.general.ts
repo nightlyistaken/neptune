@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { MessageEmbed, MessageButton, MessageActionRow, CommandInteraction, Interaction } from "discord.js";
-const wait = require('util').promisify(setTimeout);
-import { COLORS } from "../configs/main.config.json";
+import util from "util";
+const wait = util.promisify(setTimeout);
+
 export = {
   data: new SlashCommandBuilder()
     .setName("help")

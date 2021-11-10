@@ -2,8 +2,9 @@ import { CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { MessageEmbed } from "discord.js";
 import { inlineCode } from "@discordjs/builders";
+import util from "util";
+const wait = util.promisify(setTimeout);
 
-const wait = require("util").promisify(setTimeout);
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("ping")

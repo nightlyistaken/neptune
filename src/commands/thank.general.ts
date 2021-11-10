@@ -3,7 +3,7 @@ import { CommandInteraction, MessageEmbed, User } from "discord.js";
 
 export = {
   data: new SlashCommandBuilder()
-    .setName("thank")
+    .setName("thanks")
     .setDescription("Say thank you to someone.")
     .addUserOption((option) =>
       option
