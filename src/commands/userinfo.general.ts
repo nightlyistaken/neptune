@@ -8,7 +8,7 @@ export = {
       option
         .setName("user")
         .setDescription("What action should be taken with the users points?")
-        .setRequired(true)
+        .setRequired(true),
     ),
   async execute(interaction: CommandInteraction) {
     const user = interaction.options.getUser("user");
@@ -17,7 +17,7 @@ export = {
       .setColor("#332191")
       .setTitle(`${user?.tag}`)
       .setDescription(
-        `You are currently viewing **${user?.username}'s** discord profile!`
+        `You are currently viewing **${user?.username}'s** discord profile!`,
       )
       .addFields(
         {
@@ -39,9 +39,13 @@ export = {
         {
           name: `${user?.username}'s discord tag`,
           value: `${user?.username}*#*${user?.discriminator}`,
-        }
+        },
       )
-      .setThumbnail((user as User)?.displayAvatarURL({ format: "jpg" }));
+      .setThumbnail(
+        (user as User)?.displayAvatarURL({
+          format: "jpg",
+        }),
+      );
     return await interaction.reply({ embeds: [embed] });
   },
 };

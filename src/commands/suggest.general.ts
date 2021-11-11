@@ -1,5 +1,11 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { MessageEmbed, MessageActionRow, MessageButton, CommandInteraction, TextChannel } from "discord.js";
+import {
+  MessageEmbed,
+  MessageActionRow,
+  MessageButton,
+  CommandInteraction,
+  TextChannel,
+} from "discord.js";
 
 export = {
   data: new SlashCommandBuilder()
@@ -9,19 +15,19 @@ export = {
       option
         .setName("suggestion")
         .setDescription("What is your suggestion?")
-        .setRequired(true)
+        .setRequired(true),
     )
     .addChannelOption((option) =>
       option
         .setName("destination")
         .setDescription("Select a channel")
-        .setRequired(true)
+        .setRequired(true),
     ),
   async execute(interaction: CommandInteraction) {
     const input =
       interaction.options.getString("suggestion") || "No suggestion specified";
     const channel = interaction.options.getChannel(
-      "destination"
+      "destination",
     ) as TextChannel;
 
     const unknownTypeRow = new MessageActionRow();
@@ -30,14 +36,16 @@ export = {
       new MessageButton()
         .setLabel("Contact Support")
         .setStyle("LINK")
-        .setURL("https://dhairy-online.github.io/neptune")
+        .setURL("https://dhairy-online.github.io/neptune"),
     );
     const embed = new MessageEmbed();
     embed
       .setColor("#332191")
       .setAuthor(
         interaction.user.username,
-        interaction.user.displayAvatarURL({ dynamic: true })
+        interaction.user.displayAvatarURL({
+          dynamic: true,
+        }),
       )
       .setDescription(input);
     if (channel?.type === "GUILD_TEXT") {
@@ -64,7 +72,6 @@ export = {
         content: `<#${channel?.id}> is a unsupported channel. If you think this is a issue, click the button below to contact the owner.`,
         ephemeral: true,
         components: [unknownTypeRow],
-        
       });
     }
   },

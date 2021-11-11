@@ -9,13 +9,13 @@ export = {
       option
         .setName("user")
         .setDescription("Who do you want to thank?")
-        .setRequired(true)
+        .setRequired(true),
     )
     .addStringOption((option) =>
       option
         .setName("thanks-note")
         .setDescription("Why do you want to thank him/her?")
-        .setRequired(true)
+        .setRequired(true),
     ),
   async execute(interaction: CommandInteraction) {
     const user = interaction.options.getUser("user");
@@ -25,38 +25,54 @@ export = {
       .setColor("#332191")
       .setTitle(`Thanks ${user?.username}!`)
       .setDescription(
-        `${user?.username} you have been thanked by ${interaction.user.username}! for *${note}*`
+        `${user?.username} you have been thanked by ${interaction.user.username}! for *${note}*`,
       )
-      .setThumbnail((user as User)?.displayAvatarURL({ format: "jpg" }))
+      .setThumbnail(
+        (user as User)?.displayAvatarURL({
+          format: "jpg",
+        }),
+      )
       .setTimestamp();
 
-      const selfEmbed = new MessageEmbed();
-      selfEmbed
-        .setColor("#332191")
-        .setTitle(`Thanks ${user?.username}!`)
-        .setDescription(
-          `${user?.username} you have been thanked by ${interaction.user.username}!....
-          wait ${bold(interaction.user.username)} thanked itself! -_-`
-        )
-        .setThumbnail((user as User)?.displayAvatarURL({ format: "jpg" }))
-        .setTimestamp();
+    const selfEmbed = new MessageEmbed();
+    selfEmbed
+      .setColor("#332191")
+      .setTitle(`Thanks ${user?.username}!`)
+      .setDescription(
+        `${user?.username} you have been thanked by ${
+          interaction.user.username
+        }!....
+          wait ${bold(interaction.user.username)} thanked itself! -_-`,
+      )
+      .setThumbnail(
+        (user as User)?.displayAvatarURL({
+          format: "jpg",
+        }),
+      )
+      .setTimestamp();
 
     if (user?.bot) {
-      
-      if(user?.username == interaction.client.user?.username) {
-       interaction.reply(bold(`Welcome <@${interaction.user.id}> ฅ(=＾◕ᆺ◕＾=)ฅ`))
+      if (user?.username == interaction.client.user?.username) {
+        interaction.reply(
+          bold(`Welcome <@${interaction.user.id}> ฅ(=＾◕ᆺ◕＾=)ฅ`),
+        );
       } else {
-        interaction.reply(`${bold(`${user?.username}`)} is a bot!, can it be ${italic(`${bold("me?")} ฅ(=＾◕ᆺ◕＾=)ฅ`)}`)
+        interaction.reply(
+          `${bold(`${user?.username}`)} is a bot!, can it be ${italic(
+            `${bold("me?")} ฅ(=＾◕ᆺ◕＾=)ฅ`,
+          )}`,
+        );
       }
-    
     } else {
       if (user?.username == interaction.user.username) {
-        return await interaction.reply({ embeds: [selfEmbed] });
+        return await interaction.reply({
+          embeds: [selfEmbed],
+        });
       } else {
-        return await interaction.reply({ embeds: [mainEmbed] });
+        return await interaction.reply({
+          embeds: [mainEmbed],
+        });
       }
     }
-    
-    
   },
 };

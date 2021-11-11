@@ -1,5 +1,10 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { MessageEmbed, MessageButton, MessageActionRow, CommandInteraction, Interaction } from "discord.js";
+import {
+  MessageEmbed,
+  MessageButton,
+  MessageActionRow,
+  CommandInteraction,
+} from "discord.js";
 import util from "util";
 const wait = util.promisify(setTimeout);
 
@@ -12,7 +17,7 @@ export = {
       new MessageButton()
         .setLabel("View Commands")
         .setStyle("LINK")
-        .setURL("https://dhairy-online.github.io/neptune")
+        .setURL("https://dhairy-online.github.io/neptune"),
     );
     const target = `${interaction.user.username}`;
     const embed = new MessageEmbed();
@@ -21,12 +26,20 @@ export = {
       .setTitle(`Greetings ${target}! (* ^ ω ^)`)
       .setDescription(`Click the button below to check some of my commands!`)
       .setTimestamp()
-      .setFooter(`${interaction.user.tag}`, `${interaction.user.displayAvatarURL({ format: "jpg" })}`);
+      .setFooter(
+        `${interaction.user.tag}`,
+        `${interaction.user.displayAvatarURL({
+          format: "jpg",
+        })}`,
+      );
     await interaction.reply({
       content: `Message sent <@${interaction.user.id}>!`,
       ephemeral: true,
     });
     await wait(2000);
-    await interaction.user.send({ embeds: [embed], components: [row] });
+    await interaction.user.send({
+      embeds: [embed],
+      components: [row],
+    });
   },
 };

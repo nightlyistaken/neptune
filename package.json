@@ -2,14 +2,15 @@
   "name": "neptune",
   "version": "1.0.0",
   "description": "Neptune, the discord bot for good ppl by a 'dog'?",
-  "main": "src/index.ts",
+  "main": "index.ts",
   "repository": "https://github.com/dhairy-online/neptune.git",
   "author": "Dhairy Srivastava <dhairy.srivastava@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/index.ts",
-    "start": "ts-node src/index.ts",
-    "lint": "eslint . --ext .ts"
+    "dev": "nodemon index.ts",
+    "start": "ts-node index.ts",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier -w ."
   },
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
@@ -32,6 +33,7 @@
     "ytdl-core": "^4.9.1"
   },
   "devDependencies": {
-    "eslint": "^8.2.0"
+    "eslint": "^8.2.0",
+    "prettier": "^2.4.1"
   }
 }

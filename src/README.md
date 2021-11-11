@@ -12,5 +12,5 @@
 
 replace `bot_token_goes_here` with the bot's token.
 
- - `index.ts` : Entry point
- - `README.md`: Where you are currently reading
+- `index.ts` : Entry point
+- `README.md`: Where you are currently reading
