@@ -1,8 +1,8 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, GuildMember, MessageEmbed, User } from "discord.js";
+import TritonCommander from "../base/TritonCommander";
+import { CommandInteraction, GuildMember, MessageEmbed } from "discord.js";
 
 export = {
-  data: new SlashCommandBuilder()
+  data: (new TritonCommander()
     .setName("ban")
     .setDescription("Are you a admin? Ban someone!")
     .addUserOption((option) =>
@@ -15,12 +15,13 @@ export = {
       option
         .setName("reason")
         .setDescription("Why do you want to ban the user? ")
-    ),
+    ).category = "Moderation"),
   async execute(interaction: CommandInteraction) {
-    const user = interaction.options.getMember("user");
-    const reason = interaction.options.getString("reason") || "No reason provided";
+    const user = interaction.options.getMember("user") as GuildMember;
+    const reason =
+      interaction.options.getString("reason") || "No reason provided";
     // TODO: Ban command
-    (user as GuildMember)?.kick(reason);
+    user?.kick(reason);
     const embed = new MessageEmbed();
     embed
       .setColor("#332191")
