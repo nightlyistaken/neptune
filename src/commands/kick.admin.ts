@@ -5,58 +5,57 @@ import {
   Permissions,
 } from "discord.js";
 import { bold, SlashCommandBuilder } from "@discordjs/builders";
-import client from "../base/NeptuneClient";
 
 export = {
   data: new SlashCommandBuilder()
-    .setName("ban")
-    .setDescription("Are you a admin? Ban someone!")
+    .setName("kick")
+    .setDescription("Kick someone for some reason!")
     .addUserOption((option) =>
       option
         .setName("user")
-        .setDescription("Select a user to ban")
+        .setDescription("Select a user to kick")
         .setRequired(true),
     )
     .addStringOption((option) =>
       option
         .setName("reason")
-        .setDescription("Why do you want to ban the user? "),
+        .setDescription("Why do you want to kick the user? "),
     ),
   async execute(interaction: CommandInteraction) {
     const user = interaction.options.getMember("user") as GuildMember;
     const reason =
       interaction.options.getString("reason") || "No reason provided";
-    const bannedEmbed = new MessageEmbed();
-    bannedEmbed
+    const kickEmbed = new MessageEmbed();
+    kickEmbed
       .setColor("#332191")
-      .setTitle(`Banned Successfully 🔨`)
+      .setTitle(`Kicked Successfully 🔨`)
       .setDescription(
-        `${user} has been banned from ${bold(`${interaction.guild?.name}`)}`,
+        `${user} has been kicked from ${bold(`${interaction.guild?.name}`)}`,
       )
       .setFooter(
-        `Banned by ${interaction.user.tag}`,
+        `Kicked by ${interaction.user.tag}`,
         interaction.user?.displayAvatarURL(),
       );
-    const cannotBanEmbed = new MessageEmbed();
-    cannotBanEmbed
+    const cannotKickEmbed = new MessageEmbed();
+    cannotKickEmbed
       .setColor("#332191")
-      .setTitle(`You Cannot ban that user 🔨`)
-      .setDescription(`${user} is not bannable.`)
+      .setTitle(`You cannot kick that user 🔨`)
+      .setDescription(`${user} is not kickable.`)
       .setFooter(
         `Used by ${interaction.user.tag}`,
         interaction.user?.displayAvatarURL(),
       );
 
-    if (!user.bannable) {
-      return await interaction.reply({ embeds: [cannotBanEmbed] });
+    if (!user.kickable) {
+      return await interaction.reply({ embeds: [cannotKickEmbed] });
     } else if (
       (interaction as any).member?.permissions.has(
         Permissions.FLAGS.BAN_MEMBERS,
       )
     ) {
-      user.ban({ reason });
+      user.kick(reason);
 
-      return await interaction.reply({ embeds: [bannedEmbed] });
+      return await interaction.reply({ embeds: [kickEmbed] });
     }
   },
 };

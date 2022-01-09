@@ -8,7 +8,7 @@ export = {
     const embed = new MessageEmbed();
     embed
       .setColor("#332191")
-      .setTitle(`You're a ${Math.floor(Math.random() * 100 + 1)}% god!`);
+      .setTitle(`You're a ${Math.floor(Math.random() * 90 + 1)}% god!`);
     return await interaction.reply({ embeds: [embed] });
   },
 };

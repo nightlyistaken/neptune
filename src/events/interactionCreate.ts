@@ -23,9 +23,8 @@ export = {
 
     if (!command) return;
 
-    if (interaction.channel?.type == "DM") {
-      interaction.reply("Commands are not allowed to be used in DM");
-    } else {
+    if (interaction.channel?.type == "DM") return;
+    else {
       try {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore: Some sus thing
